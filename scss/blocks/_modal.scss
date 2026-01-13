@@ -1,0 +1,106 @@
+.modal {
+    // показываем и прячем модалку
+    display: none; // по умолчанию скрыта
+
+    &--open {
+        display: block;
+    }
+
+    &__overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    // &__wrapper {
+    //     background: #fff;
+    //     max-width: 480px;
+    //     width: 90%;
+    //     padding: 24px 28px;
+    //     border-radius: 12px;
+    //     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    //     position: relative;
+    //     text-align: left;
+    //     animation: scaleIn 0.25s ease-out;
+    // }
+
+
+    &__title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #000;
+    }
+
+    &__text {
+        font-size: 16px;
+        color: #333;
+        line-height: 1.4;
+    }
+
+
+    &__message {
+        display: none; // по умолчанию скрыто
+        padding-left: 16px;
+        background: #fff;
+        max-width: 480px;
+        width: 90%;
+        padding: 24px 28px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        position: relative;
+        text-align: left;
+        animation: scaleIn 0.25s ease-out;
+
+        &--success {
+            border: 8px solid #4caf50;
+        }
+
+        &--error {
+            border: 8px solid #ff4d4f;
+        }
+
+        // теперь можно показывать сообщение просто через класс
+        &.is-visible {
+            display: block;
+        }
+    }
+
+    &__btn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 8px;
+        right: 13px;
+    }
+}
+
+
+// Анимации
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
