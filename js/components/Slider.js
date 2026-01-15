@@ -1,10 +1,8 @@
 
 function slider(products) {
   const ulDay = document.querySelector('.day-products__list')
-  // Очистить текущий список слайдов
   ulDay.innerHTML = ''
 
-  // Фильтрация товаров\
   const dayProducts = products.filter(product => product.goodsOfDay === true);
 
   dayProducts.forEach(product => {
@@ -75,7 +73,6 @@ function initializationSlider() {
     },
   });
 
-  // Now you can use all slider methods like
   swiper.slideNext();
 }
 

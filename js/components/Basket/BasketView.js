@@ -10,15 +10,11 @@ const DOM = {
 };
 
 const formatter = new Intl.NumberFormat('ru-RU');
-//Создаем объект с методами 
 export const basketView = {
-    // Рендер всей корзины по данным items = [{id, product, qty}]
-    //Метод рендер
+
     render(items = []) {
-        //тело метода
         if (!DOM.list) return;
 
-        //необходимо при каждом обновлении корзины не дублировались товары, а рисовался актуальный список.
         DOM.list.innerHTML = '';
 
         items.forEach(({ id, product, qty }) => {
@@ -37,14 +33,12 @@ export const basketView = {
           <div class="basket__counter-value">${qty}</div>
                 <button class="basket__counter-btn basket__counter-plus" data-action="plus">+</button>
 
-
         <button class="basket__item-close" type="button" data-action="remove" aria-label="Удалить товар">
           <svg class="main-menu__icon" width="24" height="24" aria-hidden="true">
             <use xlink:href="images/sprite.svg#icon-close"></use>
           </svg>
         </button>
         </div>
-
       `;
             DOM.list.appendChild(li);
         });
@@ -62,7 +56,6 @@ export const basketView = {
 
     toggleEmpty(isEmpty) {
         if (!DOM.emptyBlock || !DOM.orderLink || !DOM.totalBlock) return;
-        // Если корзина пустая -> показать emptyBlock (удалить класс 'close'), скрыть total и orderLink
         DOM.emptyBlock.classList.toggle('close', !isEmpty);
         DOM.orderLink.classList.toggle('open', !isEmpty);
         DOM.totalBlock.classList.toggle('open', !isEmpty);

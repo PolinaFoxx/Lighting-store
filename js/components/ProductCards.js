@@ -1,11 +1,10 @@
-// Функция для получения данных из data.json
 async function getCardsServer() {
   try {
-    const response = await fetch('./data/data.json'); // путь к файлу
+    const response = await fetch('./data/data.json');
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.status}`);
     }
-    const products = await response.json(); // преобразуем JSON в массив объектов
+    const products = await response.json();
     return products;
   } catch (error) {
     console.error('Не удалось получить данные:', error);
@@ -77,7 +76,7 @@ const appendProductCard = (product, container) => {
 const renderCards = (products, container) => {
 
   products.forEach((product) => {
-    const card = renderOneCard(product) //передаем отдельные объекты
+    const card = renderOneCard(product)
     appendProductCard(card, container)
   });
 

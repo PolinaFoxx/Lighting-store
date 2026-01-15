@@ -2,28 +2,26 @@ import { initTooltips } from "./Tooltips.js";
 
 const pagination = (products) => {
 
-    let productCont = 6 //кол во карточек на одной странице
-    let currentPage = 1 //текущая страница
+  let productCont = 6
+  let currentPage = 1
 
-    const productContainer = document.querySelector('.catalog__list')
-    const paginationList = document.querySelector('.catalog__pagination')
+  const productContainer = document.querySelector('.catalog__list')
+  const paginationList = document.querySelector('.catalog__pagination')
 
-    const renderProducts = (products, container, productCont, currentPage) => {
-        productContainer.innerHTML = '';
+  const renderProducts = (products, container, productCont, currentPage) => {
+    productContainer.innerHTML = '';
 
-        //Расчет кол-во карточек на странице
-        const firstProductIndex = productCont * currentPage - productCont
+    const firstProductIndex = productCont * currentPage - productCont
 
-        const lastProductIndex = firstProductIndex + productCont
+    const lastProductIndex = firstProductIndex + productCont
 
-        const productsOnPage = products.slice(firstProductIndex, lastProductIndex)
+    const productsOnPage = products.slice(firstProductIndex, lastProductIndex)
 
-        //отображение карточки на странице
-        productsOnPage.forEach(({ image, id, price }) => {
-            const li = document.createElement('li')
-            li.classList.add('catalog__item')
+    productsOnPage.forEach(({ image, id, price }) => {
+      const li = document.createElement('li')
+      li.classList.add('catalog__item')
 
-            li.innerHTML = `
+      li.innerHTML = `
                 <div class="product-card">
                   <div class="product-card__visual">
                     <img class="product-card__img" src="images/${image}" height="436" width="290"
@@ -74,52 +72,51 @@ const pagination = (products) => {
                   </div>
                 </div>
     `
-            productContainer.append(li)
-        });
-        //после каждой перерисовки карточек
-            initTooltips()
+      productContainer.append(li)
+    });
+    initTooltips()
+  }
+
+  const renderPagination = (products, productCont) => {
+    paginationList.innerHTML = '';
+    //создание количества страниц
+    const pageCount = Math.ceil(products.length / productCont) //20:6 и округляем
+
+    for (let i = 1; i <= pageCount; i++) {
+      const li = renderBtn(i)
+      paginationList.append(li)
     }
+  }
 
-    const renderPagination = (products, productCont) => {
-      paginationList.innerHTML = '';
-        //создание количества страниц
-        const pageCount = Math.ceil(products.length / productCont) //20:6 и округляем
+  const renderBtn = (page) => {
+    const li = document.createElement('li')
+    const btn = document.createElement('button')
 
-        for (let i = 1; i <= pageCount; i++) {
-            const li = renderBtn(i)
-            paginationList.append(li)
-        }
-    }
+    btn.classList.add('catalog__pagination-link')
+    btn.classList.add('catalog__pagination-link')
+    li.classList.add('catalog__pagination-item')
 
-    const renderBtn = (page) => {
-        const li = document.createElement('li')
-        const btn = document.createElement('button')
+    btn.textContent = page
+    li.append(btn)
+    return li
+  }
 
-        btn.classList.add('catalog__pagination-link')
-        btn.classList.add('catalog__pagination-link')
-        li.classList.add('catalog__pagination-item')
+  const updatePagination = () => {
+    paginationList.addEventListener('click', (event) => {
+      if (!event.target.closest('.catalog__pagination-item')) {
+        return
+      } else {
+        currentPage = event.target.textContent
+        renderProducts(products, productContainer, productCont, currentPage);
+      }
+    })
+  }
 
-        btn.textContent = page
-        li.append(btn)
-        return li
-    }
-
-    const updatePagination = () => {
-        paginationList.addEventListener('click', (event) => {
-            if (!event.target.closest('.catalog__pagination-item')) {
-                return
-            } else {
-                currentPage = event.target.textContent
-                renderProducts(products, productContainer, productCont, currentPage);
-            }
-        })
-    }
-
-    renderProducts(products, productContainer, productCont, currentPage);
-    renderPagination(products, productCont)
-    updatePagination()
+  renderProducts(products, productContainer, productCont, currentPage);
+  renderPagination(products, productCont)
+  updatePagination()
 }
 
 export {
-    pagination
+  pagination
 }

@@ -92,9 +92,7 @@ function showModal(success) {
     }
 }
 
-// Вызов один раз при загрузке страницы:
 initModal();
-
 
 async function createDataFormServer(dataForm) {
     console.log('Отправляем данные на сервер с формы', dataForm);
@@ -119,7 +117,6 @@ async function createDataFormServer(dataForm) {
     } catch (error) {
         console.error('Произошла ошибка при отправке:', error);
         showModal(false);
-
     }
 }
 

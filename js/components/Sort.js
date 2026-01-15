@@ -1,5 +1,4 @@
 export function sortProducts(products, typeSort) {
-    // Копируем массив, чтобы не изменять оригинал
     const sortedProducts = [...products];
 
     switch (typeSort) {
